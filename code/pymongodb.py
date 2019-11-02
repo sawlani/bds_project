@@ -10,7 +10,7 @@ with open('example_1.json') as f:
 	file_data = json.load(f)
 	print(file_data)
 collection.insert_one(file_data)
-cursor = db.collection.find({"attributes.RestaurantsTakeOut":"true"})
+cursor = db.collection.find({"reviews.name":"testing"})
 for document in cursor:
 	pprint(document)
 
