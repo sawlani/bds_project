@@ -1,5 +1,5 @@
 {
-    "reviews":[
+    "business":[
       {    
         "business_id": "tnhfDv5Il8EaGSXZGiuQGg",
         "name": "Garaje",
@@ -40,7 +40,7 @@
       },
     {
         "business_id": "tnhfDv5Il8EaGSXZGiuQGg",
-        "name": "Garaje",
+        "name": "testing",
         "address": "475 3rd St",
         "city": "San Francisco",
         "state": "CA",

@@ -4,14 +4,14 @@ import json
 
 client = pymongo.MongoClient("localhost", 27017)
 db = client['BDAProject']
-collection = db['YelpDatabase']
+collection = db['business']
+collection.drop()
+with open('business.json') as f:
+	for line in f:
+		collection.insert_one(json.loads(line))
 
-with open('example_1.json') as f:
-	file_data = json.load(f)
-	print(file_data)
-collection.insert_one(file_data)
-cursor = db.collection.find({"reviews.name":"testing"})
-for document in cursor:
-	pprint(document)
+# query on state
+cursor = collection.find({"city":"Charlotte"})
 
-client.close()
+for query_result in cursor:
+  print(query_result)
