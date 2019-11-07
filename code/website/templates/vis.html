@@ -1,0 +1,149 @@
+{% extends "base.html" %}
+
+{% block styles %}
+{{super()}}
+<link rel="stylesheet" href="./static/lib/css/nouislider.min.css" />
+<link rel="stylesheet" href="./static/css/vis.css" />
+<link rel="stylesheet" href="./static/css/portfolio.css" />
+{% endblock %}
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-3">
+            <div class="panel panel-default filter-panel">
+                <div class="panel-body">
+                    <div class="tab">
+                        <button class="tablinks" onclick="openTab(event, 'Food')" id="foodTab">Food</button>
+                        <button class="tablinks" onclick="openTab(event, 'Indoors')">Indoors</button>
+                        <button class="tablinks" onclick="openTab(event, 'Outdoors')">Outdoors</button>
+                    </div>
+
+                    <div id="Food" class="tabcontent">
+                        <!-- Land Area -->
+                        <div class="form-group">
+                            <label for="land-area-slider">Land Area:</label>
+                            <br/><br/><br/>
+                            <div id="land-area-slider"></div>
+                            <br/>
+                        </div>
+
+                        <!-- Bedrooms -->
+                        <div class="form-group">
+                            <label for="bedroom-slider">Bedrooms:</label>
+                            <br/><br/><br/>
+                            <div id="bedroom-slider"></div>
+                            <br/>
+                        </div>
+                        <!-- Bathrooms -->
+                        <div class="form-group">
+                            <label for="bathroom-slider">Bathrooms:</label>
+                            <br/><br/><br/>
+                            <div id="bathroom-slider"></div>
+                            <br/>
+                        </div>
+                        <!-- Prediction range -->
+                        <div class="form-group">
+                            <label for="prediction-year-slider">Prediction range:</label>
+                            <br/><br/><br/>
+                            <!-- <div id="prediction-month-slider"></div>
+                            <br/><br/><br/> -->
+                            <div id="prediction-year-slider"></div>
+                            <br/><br/><br/>
+                        </div>
+                        <div class="form-group">
+                            <label for="budget-slider">Budget:</label>
+                            <br/><br/><br/>
+                            <div id="budget-slider"></div>
+                            <br/>
+                        </div>
+                        <div class="form-group button-holder">
+                            <br/><br/>
+                            <button id ="buildPortfolio" class="btn btn-primary" >Build Portfolio</button>
+                        </div>
+                    </div>
+
+                    <div id="Indoors" class="tabcontent">
+                    <!-- Price Range -->
+                        <div class="form-group">
+                            <label for="price-slider">Price Range:</label>
+                            <br/><br/><br/>
+                            <div id="price-slider"></div>
+                            <br/>
+                        </div>
+                    </div>
+
+                    <div id="Outdoors" class="tabcontent">
+                    <!-- Price Range -->
+                        <div class="form-group">
+                            <label for="price-slider">Price Range:</label>
+                            <br/><br/><br/>
+                            <div id="price-slider"></div>
+                            <br/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-sm-9">
+            <div id="content">
+                <div id="my_vis"></div>
+            </div>
+        </div>
+        <!-- Tract Details Modal -->
+        <!-- <div class="modal fade" id="censusDetailsModal" tabindex="-1" role="dialog" aria-labelledby="censusDetailsLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="censusDetailsLabel">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                </div>
+            </div>
+        </div>
+        </div> -->
+        <div class="modal fade" id="censusDetailsModal" tabindex="-1" role="dialog" aria-labelledby="censusDetailsLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="censusDetailsLabel">Modal title</h4>
+                </div>
+                <div class="modal-body" style="text-align:center">
+                    ...
+                </div>
+                <!-- <div class="modal-footer">
+                    <button type="button" id="toggleActive" value="" class="btn btn-primary" data-dismiss="modal">Toggle Active</button>
+                </div> -->
+            </div>
+          </div>
+        </div>
+        <div class="modal fade" id="portfolioModal" tabindex="-1" role="dialog" aria-labelledby="portfolioLabel">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content" id="portfolio-modal-content">
+              </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+{% endblock %}
+
+{% block scripts %}
+{{super()}}
+<script src="./static/lib/js/d3.v3.min.js"></script>
+<script src="./static/lib/js/d3-queue.v3.min.js"></script>
+<script src="./static/lib/js/d3.tip.v0.6.3.js"></script>
+<script src="./static/lib/js/topojson.v1.min.js"></script>
+<script src="./static/lib/js/wNumb.js"></script>
+<script src="./static/lib/js/nouislider.min.js"></script>
+<script src="./static/js/vis.js"></script>
+<script src="./static/js/cp.js"></script>
+<script src="./static/js/portfolio.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA9U4h8a4pgsO-heHY9JuBMytpnJCcHZHk"></script>
+{% endblock %}

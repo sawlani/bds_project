@@ -1,0 +1,4 @@
+- libxcb=1.13
+- libgfortran-ng=7.3.0
+- libgcc-ng=8.2.0
+- libstdcxx-ng=8.2.0

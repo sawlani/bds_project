@@ -1,0 +1,61 @@
+        <div class="modal-body">
+          <div class="tab">
+            <button class="tablinks active" onclick="getInfo(event, 'Apartments')">Apartments</button>
+            <button class="tablinks" onclick="getInfo(event, 'Graphs')">Graphs</button>
+            <button class="tablinks" onclick="getInfo(event, 'Map')">Map</button>
+          </div>
+
+          <div id="Apartments" class="tabcontent" style="display: block">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Address</th>
+                  <th scope="col">Buy Price</th>
+                  <th scope="col">Sell Year</th>
+                  <th scope="col">Sell Price</th>
+                  <th scope="col">Return</th>
+                  <th scope="col">Land Area</th>
+                  <th scope="col">Rating</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for i in range(result|length) %}
+                <tr>
+                  <th scope="row">{{i+1}}</th>
+                  <td>{{result[i][names_dict["FULLADDRESS"]]}}</td>
+                  <td>${{result[i][names_dict["2018"]]|round(2)}}</td>
+                  <td>{{best_years[i]}}</td>
+                  <td>${{result[i][names_dict[best_years[i]]]|round(2)}}</td>
+                  <td>{{result[i][names_dict["returns"]]|round(2)}}%</td>
+                  <td>{{result[i][names_dict["LANDAREA"]]}} sq.ft.</td>
+                  <td>{{result[i][names_dict["GRADE"]]}}</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>            
+          </div>
+
+          <div id="Graphs" class="tabcontent"></div>
+          <script>
+            $("#Graphs").append(`<img class="tract-img" src="static/data/images/portfolioValue.png?${Date.now()}"/><br/><img class="tract-img" src="static/data/images/portfolioPie.png?${Date.now()}"/><br/><img class="tract-img" src="static/data/images/portfolioRooms.png?${Date.now()}"/>`);
+          </script>
+
+          <div id="Map" class="tabcontent">
+            <div id="map"></div>
+            <script>
+            map = new google.maps.Map(document.getElementById('map'), {
+              center: {lat: 38.9072, lng: -77.0369},
+              zoom: 12
+            });
+            {% for i in range(result|length) %}
+            var marker = new google.maps.Marker({
+              position: { lat: {{result[i][names_dict["LATITUDE"]]}}, lng: {{result[i][names_dict["LONGITUDE"]]}} },
+              label: "{{i+1}}",
+              map: map
+            });
+            {% endfor %}
+            </script>
+          </div>
+
+        </div>

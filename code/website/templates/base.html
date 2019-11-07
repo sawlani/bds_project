@@ -1,0 +1,17 @@
+{%- extends "bootstrap/base.html" %}
+
+{% block title %}Restaurant Design Tool{% endblock %}
+
+{% block head %}
+{{super()}}
+{%- endblock %}
+
+{% block styles %}
+{{super()}}
+
+{% endblock %}
+
+
+{% block navbar %}
+{{nav.mynavbar.render(renderer='inverse')}}
+{% endblock %}
