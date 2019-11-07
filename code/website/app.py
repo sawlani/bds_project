@@ -43,6 +43,17 @@ def define_routes(app):
     def vis():
         return render_template("vis.html", name="Visualisation")
 
+    @app.route('/design', methods=['POST', 'GET'])
+    # @login_required
+    def design():
+        return render_template("design.html", name="Design")
+
+    @app.route('/about', methods=['POST', 'GET'])
+    # @login_required
+    def about():
+        return render_template("about.html", name="About")
+
+
 
     @app.route('/fetch_filtered_data')
     def fetch_filtered_data():
@@ -173,9 +184,10 @@ def nav_init(app):
     @nav.navigation()
     def mynavbar():
         return Navbar(
-            'Real Estate Portfolio',
             View('Home', 'main'),
+            View('Design', 'design'),
             View('Visualization', 'vis'),
+            View('About', 'about'),
         )
 
     nav.init_app(app)
