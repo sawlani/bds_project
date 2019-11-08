@@ -12,84 +12,55 @@
         <div class="col-sm-3">
             <div class="panel panel-default filter-panel">
                 <div class="panel-body">
+                    <!-- Cuisines -->
+                    <div class="form-group">
+                        <label for="sel1">Cuisine:</label>
+                        <select class="form-control" id="cuisine-selector">
+                            <option>Thai</option>
+                            <option>Chinese</option>
+                            <option>Indian</option>
+                            <option>Mexican</option>
+                        </select>
+                        <br/>
+                    </div>
+
+                    <!-- Timings -->
+                    <div class="form-group">
+                        <label for="timings-slider">Open Hours:</label>
+                        <br/><br/><br/>
+                        <div id="timings-slider"></div>
+                        <br/>
+                    </div>
+
+                    <!-- Land Area -->
+                    <div class="form-group">
+                        <label for="land-area-slider">Search Within:</label>
+                        <br/><br/><br/>
+                        <div id="land-area-slider"></div>
+                        <br/>
+                    </div>
+
+                    <div class="form-group button-holder">
+                        <br/><br/>
+                        <button id ="designSearch" class="btn btn-primary" >Search</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-9">
+            <div id="content">
+                <div id="my_vis">
                     <div class="tab">
-                        <button class="tablinks" onclick="openTab(event, 'Food')" id="foodTab">Food</button>
-                        <button class="tablinks" onclick="openTab(event, 'Indoors')">Indoors</button>
-                        <button class="tablinks" onclick="openTab(event, 'Outdoors')">Outdoors</button>
-                    </div>
-
-                    <div id="Food" class="tabcontent">
-                        <!-- Land Area -->
-                        <div class="form-group">
-                            <label for="land-area-slider">Land Area:</label>
-                            <br/><br/><br/>
-                            <div id="land-area-slider"></div>
-                            <br/>
-                        </div>
-
-                        <!-- Bedrooms -->
-                        <div class="form-group">
-                            <label for="bedroom-slider">Bedrooms:</label>
-                            <br/><br/><br/>
-                            <div id="bedroom-slider"></div>
-                            <br/>
-                        </div>
-                        <!-- Bathrooms -->
-                        <div class="form-group">
-                            <label for="bathroom-slider">Bathrooms:</label>
-                            <br/><br/><br/>
-                            <div id="bathroom-slider"></div>
-                            <br/>
-                        </div>
-                        <!-- Prediction range -->
-                        <div class="form-group">
-                            <label for="prediction-year-slider">Prediction range:</label>
-                            <br/><br/><br/>
-                            <!-- <div id="prediction-month-slider"></div>
-                            <br/><br/><br/> -->
-                            <div id="prediction-year-slider"></div>
-                            <br/><br/><br/>
-                        </div>
-                        <div class="form-group">
-                            <label for="budget-slider">Budget:</label>
-                            <br/><br/><br/>
-                            <div id="budget-slider"></div>
-                            <br/>
-                        </div>
-                        <div class="form-group button-holder">
-                            <br/><br/>
-                            <button id ="buildPortfolio" class="btn btn-primary" >Build Portfolio</button>
-                        </div>
-                    </div>
-
-                    <div id="Indoors" class="tabcontent">
-                    <!-- Price Range -->
-                        <div class="form-group">
-                            <label for="price-slider">Price Range:</label>
-                            <br/><br/><br/>
-                            <div id="price-slider"></div>
-                            <br/>
-                        </div>
-                    </div>
-
-                    <div id="Outdoors" class="tabcontent">
-                    <!-- Price Range -->
-                        <div class="form-group">
-                            <label for="price-slider">Price Range:</label>
-                            <br/><br/><br/>
-                            <div id="price-slider"></div>
-                            <br/>
-                        </div>
+                        <button class="tablinks" onclick="openTab(event, 'Food')" id='Food'>Food</button>
+                        <button class="tablinks" onclick="openTab(event, 'Indoors')" id='Indoors'>Indoors</button>
+                        <button class="tablinks" onclick="openTab(event, 'Outdoors')" id='Outdoors'>Outdoors</button>
                     </div>
                 </div>
             </div>
         </div>
-        
-        <div class="col-sm-9">
-            <div id="content">
-                <div id="my_vis"></div>
-            </div>
-        </div>
+
         <!-- Tract Details Modal -->
         <!-- <div class="modal fade" id="censusDetailsModal" tabindex="-1" role="dialog" aria-labelledby="censusDetailsLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -105,7 +76,7 @@
             </div>
         </div>
         </div> -->
-        <div class="modal fade" id="censusDetailsModal" tabindex="-1" role="dialog" aria-labelledby="censusDetailsLabel">
+        <!-- <div class="modal fade" id="censusDetailsModal" tabindex="-1" role="dialog" aria-labelledby="censusDetailsLabel">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                 <div class="modal-header">
@@ -114,11 +85,11 @@
                 </div>
                 <div class="modal-body" style="text-align:center">
                     ...
-                </div>
+                </div> -->
                 <!-- <div class="modal-footer">
                     <button type="button" id="toggleActive" value="" class="btn btn-primary" data-dismiss="modal">Toggle Active</button>
                 </div> -->
-            </div>
+            <!-- </div>
           </div>
         </div>
         <div class="modal fade" id="portfolioModal" tabindex="-1" role="dialog" aria-labelledby="portfolioLabel">
@@ -126,7 +97,7 @@
               <div class="modal-content" id="portfolio-modal-content">
               </div>
             </div>
-        </div>
+        </div> -->
 
     </div>
 </div>
@@ -143,7 +114,7 @@
 <script src="./static/lib/js/wNumb.js"></script>
 <script src="./static/lib/js/nouislider.min.js"></script>
 <script src="./static/js/vis.js"></script>
-<script src="./static/js/cp.js"></script>
+<!-- <script src="./static/js/cp.js"></script> -->
 <script src="./static/js/portfolio.js"></script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA9U4h8a4pgsO-heHY9JuBMytpnJCcHZHk"></script>
+<!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA9U4h8a4pgsO-heHY9JuBMytpnJCcHZHk"></script> -->
 {% endblock %}

@@ -1,3 +1,13 @@
+.col1 {
+  float: left;
+  width: 30%;
+}
+
+.col2 {
+  float: left;
+  width: 60%;
+}
+
 noUi-tooltip {
     display: none;
 }
@@ -53,11 +63,11 @@ svg, body {
     text-align: center;
 }
 
-.filter-panel {
+/*.filter-panel {
     border: 1px solid black;
-    height: 85%;
+    height: 80%;
     padding: 10px;
-}
+}*/
 
 .map-census-tract:hover {
     cursor: pointer;

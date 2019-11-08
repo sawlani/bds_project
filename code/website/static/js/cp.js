@@ -238,33 +238,36 @@ function initSlider() {
 
 function getFilteredData(censusTracts=[]) {
     // e.preventDefault();
-    var priceSlider = document.getElementById('price-slider');
-    var landAreaSlider = document.getElementById('land-area-slider');
-    var bedroomSlider = document.getElementById('bedroom-slider');
-    var bathroomSlider = document.getElementById('bathroom-slider');
-    var predictionYearSlider = document.getElementById('prediction-year-slider');
-    $.ajax({
-        url: "/fetch_filtered_data",
-        type: "get",
-        data: {
-            price_start: priceSlider.noUiSlider.get()[0],
-            price_end: priceSlider.noUiSlider.get()[1],
-            land_area_start: landAreaSlider.noUiSlider.get()[0],
-            land_area_end: landAreaSlider.noUiSlider.get()[1],
-            bedrooms_start: bedroomSlider.noUiSlider.get()[0],
-            bedrooms_end: bedroomSlider.noUiSlider.get()[1],
-            bathrooms_start: bathroomSlider.noUiSlider.get()[0],
-            bathrooms_end: bathroomSlider.noUiSlider.get()[1],
-            prediction_year: predictionYearSlider.noUiSlider.get(),
-            census_tracts: censusTracts
-        },
-        success: function(response) {
-            colorChoropleth(response);
-        },
-        error: function(xhr) {
-            //Do Something to handle error
-        }
-    });
+    // var Slider = document.getElementById('price-slider');
+    // var landAreaSlider = document.getElementById('land-area-slider');
+    // var bedroomSlider = document.getElementById('bedroom-slider');
+    // var priceSlider = document.getElementById('price-slider');
+    // var landAreaSlider = document.getElementById('land-area-slider');
+    // var bedroomSlider = document.getElementById('bedroom-slider');
+    // var bathroomSlider = document.getElementById('bathroom-slider');
+    // var predictionYearSlider = document.getElementById('prediction-year-slider');
+    // $.ajax({
+    //     url: "/fetch_filtered_data",
+    //     type: "get",
+    //     data: {
+    //         price_start: priceSlider.noUiSlider.get()[0],
+    //         price_end: priceSlider.noUiSlider.get()[1],
+    //         land_area_start: landAreaSlider.noUiSlider.get()[0],
+    //         land_area_end: landAreaSlider.noUiSlider.get()[1],
+    //         bedrooms_start: bedroomSlider.noUiSlider.get()[0],
+    //         bedrooms_end: bedroomSlider.noUiSlider.get()[1],
+    //         bathrooms_start: bathroomSlider.noUiSlider.get()[0],
+    //         bathrooms_end: bathroomSlider.noUiSlider.get()[1],
+    //         prediction_year: predictionYearSlider.noUiSlider.get(),
+    //         census_tracts: censusTracts
+    //     },
+    //     success: function(response) {
+    //         colorChoropleth(response);
+    //     },
+    //     error: function(xhr) {
+    //         //Do Something to handle error
+    //     }
+    // });
 }
 
 function getTractData(censusTract) {
