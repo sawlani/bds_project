@@ -87,7 +87,7 @@ function getImages(){
   var landAreaSlider = document.getElementById('land-area-slider');
   var timingSlider = document.getElementById('timings-slider');
   var cuisineSelector = document.getElementById('cuisine-selector');
-  console.log(cuisineSelector.value)
+  
   $.ajax({
       url: "/fetch_designs",
       type: "get",
@@ -99,8 +99,8 @@ function getImages(){
           cuisine: cuisineSelector.value
       },
       success: function(response) {
-          $('#portfolioModal .modal-content').html(response);
-          $('#portfolioModal').modal("show");
+          console.log(response)
+          $('#food_gallery').html(response.img)
       },
       error: function(xhr) {
           //Do Something to handle error

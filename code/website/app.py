@@ -99,6 +99,19 @@ def define_routes(app):
 
 
     @app.route('/fetch_designs', methods=['GET'])
+    def fetch_designs():
+        cuisine = request.args.get("cuisine")
+        land_area_start = request.args.get("land_area_start")
+        land_area_end = request.args.get("land_area_end")
+        timings_start = request.args.get("timings_start")
+        timings_end = request.args.get("timings_end")
+
+        #TODO: Get results from database: similar to sql_queries
+        image = '<img src="../static/data/images/tractDetails.png" alt="Sample" width="600" height="400">'
+        return jsonify(img = image)
+
+
+    @app.route('/fetch_portfolio', methods=['GET'])
     def fetch_portfolio():
         census_tracts = request.args.getlist("census_tracts[]")
         start_year = "2018"
