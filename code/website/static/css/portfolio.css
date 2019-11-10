@@ -41,4 +41,8 @@ body {font-family: Arial;}
 #map {
     height: 75vh;
     width: 75vh;
-  }
+}
+
+.modal-body {
+    background-color: #E6E6FA   ;
+}

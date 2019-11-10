@@ -145,6 +145,32 @@ def define_routes(app):
             
         return jsonify(img = all_images, labels = all_labels)
 
+    @app.route('/fetch_business_details', methods=['GET'])
+    def fetch_business_details():
+        photo_id = request.args.get("photo_id")
+
+        #TODO: Get results from database: 
+        business_name = 'Panda Express'
+        address = '470 16th Street'
+        city = 'Atlanta'
+        state = 'Georgia'
+        stars = '4.5'
+        num_reviews = '1500'
+        categories = 'Mexican, Burgers, Gastropubs'
+
+        img_src = './static/data/images/' + str(photo_id) + '.jpg'
+
+        return render_template('business_details.html', 
+                    business_name = business_name, 
+                    address = address,
+                    city = city, 
+                    state = state,
+                    stars = stars,
+                    num_reviews = num_reviews, 
+                    categories = categories,
+                    img_src = img_src,
+                    )
+
 
     @app.route('/fetch_portfolio', methods=['GET'])
     def fetch_portfolio():

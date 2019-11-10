@@ -142,6 +142,7 @@ function getSlide(image) {
   var img = document.createElement('img');
   img.setAttribute('class', 'gallery-image');
   img.setAttribute('src', './static/data/images/' + image);
+  img.setAttribute('onclick', 'getBusinessDetails(\'' + image.slice(0,-4) + '\')');
   var width = imgwidth.toString() + '%';
   img.setAttribute('width', width);     
   slide.appendChild(img);
@@ -184,4 +185,21 @@ function showSlides(flag, index, label) {
       x[photoIndex[index] + i].style.display = "block";
     }
   }  
+}
+
+function getBusinessDetails(photo_id){
+  $.ajax({
+      url: "/fetch_business_details",
+      type: "get",
+      data: {
+          photo_id: photo_id
+      },
+      success: function(response) {
+        $('#business_details_modal .modal-content').html(response);
+        $('#business_details_modal').modal("show");
+      },
+      error: function(xhr) {
+          //Do Something to handle error
+      }
+  });
 }
