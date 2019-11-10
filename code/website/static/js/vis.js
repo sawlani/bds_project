@@ -111,7 +111,6 @@ function getImages(){
 }
 
 function displayGallery(images, img_labels, label) {
-  console.log(label);
   var photoIndex = [];
   var gallery = document.getElementById(label + '_gallery');
   for (i=0;i<images.length;i++){
@@ -126,7 +125,6 @@ function displayGallery(images, img_labels, label) {
     currSlideContainer.appendChild(para);
 
     for(j=0;j<images[i].length;j++){
-      console.log(images[i][j]);
       var slide = getSlide(images[i][j]); 
       slide.style.display = 'none';
 
@@ -182,7 +180,7 @@ function showSlides(flag, index, label) {
   var x = document.getElementById(label + '_gallery').getElementsByClassName(slideId)[index].getElementsByClassName('slide');
   var photoIndex = indices[label];
   photoIndex[index] = photoIndex[index] + flag * numImages
-  if(photoIndex[index] >= x.length) photoIndex[index] = photoIndex[index] % x.length;
+  if(photoIndex[index] >= x.length) photoIndex[index] = photoIndex[index] - flag * numImages;
   if(photoIndex[index] < 0) photoIndex[index] = 0;
   
   for (i = 0; i < x.length; i++) {

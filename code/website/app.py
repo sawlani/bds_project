@@ -247,7 +247,7 @@ def nav_init(app):
     @nav.navigation()
     def mynavbar():
         return Navbar(
-            'Real Estate Portfolio',
+            'Restaurant Design Inspiration Tool',
             View('Home', 'main'),
             View('Visualization', 'vis'),
         )
