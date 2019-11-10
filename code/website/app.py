@@ -105,16 +105,45 @@ def define_routes(app):
         land_area_end = request.args.get("land_area_end")
         timings_start = request.args.get("timings_start")
         timings_end = request.args.get("timings_end")
+        labels = request.args.get("label")
 
         #TODO: Get results from database: similar to sql_queries
         # image = '<img src="../static/data/images/tractDetails.png" alt="Sample" width="600" height="400">'
-        images = [['img_mountains_wide.jpg', 'img_nature_wide.jpg', 'img_snow_wide.jpg', 'img_band_chicago.jpg', 'img_band_la.jpg'], 
-        ['img_mountains_wide.jpg', 'img_nature_wide.jpg', 'img_snow_wide.jpg', 'img_band_chicago.jpg', 'img_band_la.jpg'], 
-        ['img_mountains_wide.jpg', 'img_nature_wide.jpg', 'img_snow_wide.jpg', 'img_band_chicago.jpg', 'img_band_la.jpg'], 
-        ['img_mountains_wide.jpg', 'img_nature_wide.jpg', 'img_snow_wide.jpg', 'img_band_chicago.jpg', 'img_band_la.jpg'], 
-        ['img_mountains_wide.jpg', 'img_nature_wide.jpg', 'img_snow_wide.jpg', 'img_band_chicago.jpg', 'img_band_la.jpg']]
-        labels = ['Scenary', 'Bands', 'Scenary', 'Bands', 'Scenary' ]
-        return jsonify(img = images, labels = labels)
+        all_images = []
+        all_labels = []
+        # if(label == 'Food'):
+
+        images = [['img_nature_wide.jpg', 'img_nature_wide.jpg', 'img_nature_wide.jpg', 'img_nature_wide.jpg', 'img_nature_wide.jpg'], 
+        ['img_nature_wide.jpg', 'img_nature_wide.jpg', 'img_nature_wide.jpg', 'img_nature_wide.jpg', 'img_nature_wide.jpg'],
+        ['img_nature_wide.jpg', 'img_nature_wide.jpg', 'img_nature_wide.jpg', 'img_nature_wide.jpg', 'img_nature_wide.jpg'],
+        ['img_nature_wide.jpg', 'img_nature_wide.jpg', 'img_nature_wide.jpg', 'img_nature_wide.jpg', 'img_nature_wide.jpg'],
+        ['img_nature_wide.jpg', 'img_nature_wide.jpg', 'img_nature_wide.jpg', 'img_nature_wide.jpg', 'img_nature_wide.jpg']];
+        img_labels = ['Scenary', 'Bands', 'Scenary', 'Bands', 'Scenary' ]
+        all_images.append(images)
+        all_labels.append(img_labels)
+        # return jsonify(img = images, labels = img_labels)
+
+        # if(label == 'Indoors'):
+        images = [['img_mountains_wide.jpg', 'img_mountains_wide.jpg', 'img_mountains_wide.jpg', 'img_mountains_wide.jpg', 'img_mountains_wide.jpg'], 
+        ['img_mountains_wide.jpg', 'img_mountains_wide.jpg', 'img_mountains_wide.jpg', 'img_mountains_wide.jpg', 'img_mountains_wide.jpg'],
+        ['img_mountains_wide.jpg', 'img_mountains_wide.jpg', 'img_mountains_wide.jpg', 'img_mountains_wide.jpg', 'img_mountains_wide.jpg'],
+        ['img_mountains_wide.jpg', 'img_mountains_wide.jpg', 'img_mountains_wide.jpg', 'img_mountains_wide.jpg', 'img_mountains_wide.jpg'],
+        ['img_mountains_wide.jpg', 'img_mountains_wide.jpg', 'img_mountains_wide.jpg', 'img_mountains_wide.jpg', 'img_mountains_wide.jpg']]
+        img_labels = ['Scenary', 'Bands', 'Scenary', 'Bands', 'Scenary']
+        all_images.append(images)
+        all_labels.append(img_labels)
+
+        # if(label == 'Outdoors'):
+        images = [['img_band_la.jpg', 'img_band_la.jpg', 'img_band_la.jpg', 'img_band_la.jpg', 'img_band_la.jpg'], 
+        ['img_band_la.jpg', 'img_band_la.jpg', 'img_band_la.jpg', 'img_band_la.jpg', 'img_band_la.jpg'],
+        ['img_band_la.jpg', 'img_band_la.jpg', 'img_band_la.jpg', 'img_band_la.jpg', 'img_band_la.jpg'],
+        ['img_band_la.jpg', 'img_band_la.jpg', 'img_band_la.jpg', 'img_band_la.jpg', 'img_band_la.jpg'],
+        ['img_band_la.jpg', 'img_band_la.jpg', 'img_band_la.jpg', 'img_band_la.jpg', 'img_band_la.jpg']]
+        img_labels = ['Scenary', 'Bands', 'Scenary', 'Bands', 'Scenary' ]
+        all_images.append(images)
+        all_labels.append(img_labels)
+            
+        return jsonify(img = all_images, labels = all_labels)
 
 
     @app.route('/fetch_portfolio', methods=['GET'])

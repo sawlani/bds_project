@@ -1,26 +1,18 @@
-// 
+
 initSlider();
 $("#designSearch").click(() => getImages());
 
+var galleries = ["Food", "Indoors", "Outdoors"];
+var indices = {};
+var numImages = 4;
+var imgwidth = 100 / numImages;
+var slideId = 'slideshow-container';
+
 function openTab(evt, type) {
-	// Declare all variables
-	var i, tabcontent, tablinks;
-
-	// Get all elements with class="tabcontent" and hide them
-	tabcontent = document.getElementsByClassName("tabcontent");
-	for (i = 0; i < tabcontent.length; i++) {
-		tabcontent[i].style.display = "none";
-	}
-
-	// Get all elements with class="tablinks" and remove the class "active"
-	tablinks = document.getElementsByClassName("tablinks");
-	for (i = 0; i < tablinks.length; i++) {
-		tablinks[i].className = tablinks[i].className.replace(" active", "");
-	}
-
-	// Show the current tab, and add an "active" class to the button that opened the tab
-	document.getElementById(type).style.display = "block";
-	evt.currentTarget.className += " active";
+  for(i=0;i<galleries.length;i++) {
+    var gallery = document.getElementById(galleries[i] + "_gallery");
+    gallery.style.display = (type == galleries[i]) ? 'block' : 'none';
+  }
 }
 
 function initSlider() {
@@ -87,7 +79,8 @@ function getImages(){
   var landAreaSlider = document.getElementById('land-area-slider');
   var timingSlider = document.getElementById('timings-slider');
   var cuisineSelector = document.getElementById('cuisine-selector');
-  
+  indices = {}
+
   $.ajax({
       url: "/fetch_designs",
       type: "get",
@@ -96,30 +89,36 @@ function getImages(){
           land_area_end: landAreaSlider.noUiSlider.get()[1],
           timings_start: timingSlider.noUiSlider.get()[0],
           timings_end: timingSlider.noUiSlider.get()[1],
+          labels: galleries,
           cuisine: cuisineSelector.value
       },
       success: function(response) {
-          displayGallery(response.img, response.labels)
-          // $('#food_gallery').html(response.img)
+          images = response.img
+          labels = response.labels
+          for(var i=0; i<galleries.length; i++){
+            displayGallery(images[i], labels[i], galleries[i])
+          }
       },
       error: function(xhr) {
           //Do Something to handle error
       }
   });
+
+  for(i = 0;i<galleries.length;i++){
+    var gallery = document.getElementById(galleries[i] + "_gallery");
+    gallery.style.display = (i == 0) ? 'block' : 'none';
+  }
 }
 
-var photoIndex = [];
-var numImages = 4;
-var imgwidth = 100 / numImages;
-var slideId = 'slideshow-container';
-
-function displayGallery(images) {
-  var gallery = document.getElementById('food_gallery');
-
+function displayGallery(images, img_labels, label) {
+  console.log(label);
+  var photoIndex = [];
+  var gallery = document.getElementById(label + '_gallery');
   for (i=0;i<images.length;i++){
-    var currSlideContainer = getSlideContainer(i);
+    var currSlideContainer = getSlideContainer(i, label);
 
     for(j=0;j<images[i].length;j++){
+      console.log(images[i][j]);
       var slide = getSlide(images[i][j]); 
       slide.style.display = 'none';
 
@@ -133,6 +132,7 @@ function displayGallery(images) {
     currSlideContainer.style.display = 'block'
     photoIndex.push(0);
   }
+  indices[label] = photoIndex;
 }
 
 function getSlide(image) {
@@ -149,18 +149,18 @@ function getSlide(image) {
   return slide;
 }
 
-function getSlideContainer(index){
+function getSlideContainer(index, label){
   var slideContainer = document.createElement('div');
   slideContainer.setAttribute('class', slideId);
 
   var prev = document.createElement('a');
   prev.setAttribute('class', 'prev');
-  prev.setAttribute('onclick', "showSlides(-1," + index.toString() + ")");
+  prev.setAttribute('onclick', "showSlides(-1," + index.toString() + ",\'" + label + "\')");
   prev.appendChild(document.createTextNode('<'));
 
   var next = document.createElement('a')
   next.setAttribute('class', 'next');
-  next.setAttribute('onclick', "showSlides(1," + index.toString() + ")");
+  next.setAttribute('onclick', "showSlides(1," + index.toString() + ",\'" + label + "\')");
   next.appendChild(document.createTextNode('>'));
 
   slideContainer.appendChild(prev);
@@ -169,8 +169,9 @@ function getSlideContainer(index){
   return slideContainer;
 }
 
-function showSlides(flag, index) {
-  var x = document.getElementsByClassName(slideId)[index].getElementsByClassName('slide');
+function showSlides(flag, index, label) {
+  var x = document.getElementById(label + '_gallery').getElementsByClassName(slideId)[index].getElementsByClassName('slide');
+  var photoIndex = indices[label];
   photoIndex[index] = photoIndex[index] + flag * numImages
   if(photoIndex[index] >= x.length) photoIndex[index] = photoIndex[index] % x.length;
   if(photoIndex[index] < 0) photoIndex[index] = 0;
