@@ -107,8 +107,14 @@ def define_routes(app):
         timings_end = request.args.get("timings_end")
 
         #TODO: Get results from database: similar to sql_queries
-        image = '<img src="../static/data/images/tractDetails.png" alt="Sample" width="600" height="400">'
-        return jsonify(img = image)
+        # image = '<img src="../static/data/images/tractDetails.png" alt="Sample" width="600" height="400">'
+        images = [['img_mountains_wide.jpg', 'img_nature_wide.jpg', 'img_snow_wide.jpg', 'img_band_chicago.jpg', 'img_band_la.jpg'], 
+        ['img_mountains_wide.jpg', 'img_nature_wide.jpg', 'img_snow_wide.jpg', 'img_band_chicago.jpg', 'img_band_la.jpg'], 
+        ['img_mountains_wide.jpg', 'img_nature_wide.jpg', 'img_snow_wide.jpg', 'img_band_chicago.jpg', 'img_band_la.jpg'], 
+        ['img_mountains_wide.jpg', 'img_nature_wide.jpg', 'img_snow_wide.jpg', 'img_band_chicago.jpg', 'img_band_la.jpg'], 
+        ['img_mountains_wide.jpg', 'img_nature_wide.jpg', 'img_snow_wide.jpg', 'img_band_chicago.jpg', 'img_band_la.jpg']]
+        labels = ['Scenary', 'Bands', 'Scenary', 'Bands', 'Scenary' ]
+        return jsonify(img = images, labels = labels)
 
 
     @app.route('/fetch_portfolio', methods=['GET'])
