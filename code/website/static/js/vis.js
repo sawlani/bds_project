@@ -117,6 +117,14 @@ function displayGallery(images, img_labels, label) {
   for (i=0;i<images.length;i++){
     var currSlideContainer = getSlideContainer(i, label);
 
+    var para = document.createElement('h4');
+    para.setAttribute('class', 'row-label');
+
+    var node = document.createTextNode(img_labels[i]);
+    para.appendChild(node);
+
+    currSlideContainer.appendChild(para);
+
     for(j=0;j<images[i].length;j++){
       console.log(images[i][j]);
       var slide = getSlide(images[i][j]); 
