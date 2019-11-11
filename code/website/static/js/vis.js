@@ -113,6 +113,7 @@ function getImages(){
 function displayGallery(images, img_labels, label) {
   var photoIndex = [];
   var gallery = document.getElementById(label + '_gallery');
+  gallery.innerHTML = '';
   for (i=0;i<images.length;i++){
     var currSlideContainer = getSlideContainer(i, label);
 
@@ -147,7 +148,8 @@ function getSlide(image) {
 
   var img = document.createElement('img');
   img.setAttribute('class', 'gallery-image');
-  img.setAttribute('src', './static/data/images/' + image);
+   img.setAttribute('src', image);
+  // img.setAttribute('src', './static/data/images/' + image);
   img.setAttribute('onclick', 'getBusinessDetails(\'' + image.slice(0,-4) + '\')');
   var width = imgwidth.toString() + '%';
   img.setAttribute('width', width);     
