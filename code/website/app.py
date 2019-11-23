@@ -66,15 +66,15 @@ def define_routes(app):
         photo_id = request.args.get("photo_id")
 
         #TODO: Get results from database: 
-        business_name = 'Panda Express'
-        address = '470 16th Street'
+        business_name = 'Cafe Intermezzo'
+        address = '1065 Peachtree St NE'
         city = 'Atlanta'
         state = 'Georgia'
-        stars = '4.5'
-        num_reviews = '1500'
-        categories = 'Mexican, Burgers, Gastropubs'
+        stars = '4.0'
+        num_reviews = '1024'
+        categories = 'Cafes, Bars, Desserts'
 
-        img_src = './static/data/images/' + str(photo_id) + '.jpg'
+        img_src = './static/data/food/desserts/Cheesecake/165910.jpg'
 
         return render_template('business_details.html', 
                     business_name = business_name, 
