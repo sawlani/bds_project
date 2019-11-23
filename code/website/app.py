@@ -47,11 +47,12 @@ def define_routes(app):
     @app.route('/fetch_designs', methods=['GET'])
     def fetch_designs():
         cuisine = request.args.get("cuisine")
-        land_area_start = request.args.get("land_area_start")
-        land_area_end = request.args.get("land_area_end")
+        # land_area_start = request.args.get("land_area_start")
+        # land_area_end = request.args.get("land_area_end")
         timings_start = request.args.get("timings_start")
         timings_end = request.args.get("timings_end")
         labels = request.args.get("label")
+        city = request.args.get("city")
 
         #TODO: Get results from database: similar to sql_queries
         all_images, all_labels = fetch_demo_data()

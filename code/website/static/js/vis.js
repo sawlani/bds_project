@@ -1,5 +1,7 @@
+initCities();
+initTimingSlider();
+// initLandAreaSlider();
 
-initSlider();
 $("#designSearch").click(() => getImages());
 
 var galleries = ["Food", "Indoors", "Outdoors"];
@@ -8,6 +10,22 @@ var numImages = 4;
 var imgwidth = 100 / numImages;
 var slideId = 'slideshow-container';
 
+function initCities(){
+  cities = ['Las Vegas', 'Toronto', 'Phoenix', 'Charlotte', 'Scottsdale', 'Calgary', 'Pittsburgh', 
+            'Montréal', 'Mesa', 'Henderson', 'Tempe', 'Chandler', 'Cleveland', 'Glendale', 
+            'Madison', 'Gilbert', 'Mississauga', 'Peoria', 'Markham', 'North Las Vegas', 'Champaign', 
+            'North York', 'Surprise', 'Scarborough', 'Richmond Hill', 'Brampton', 'Concord', 
+            'Vaughan', 'Goodyear', 'Etobicoke'];
+
+  var cityForm = document.getElementById('city-selector');
+  for(i=0;i<cities.length;i++){
+    var option = document.createElement('option');
+    option.text = cities[i];
+    option.value = cities[i];
+    cityForm.appendChild(option);
+  }
+}
+
 function openTab(evt, type) {
   for(i=0;i<galleries.length;i++) {
     var gallery = document.getElementById(galleries[i] + "_gallery");
@@ -15,28 +33,29 @@ function openTab(evt, type) {
   }
 }
 
-function initSlider() {
+function initLandAreaSlider() {
+  var landAreaSlider = document.getElementById('land-area-slider');
+  noUiSlider.create(landAreaSlider, {
+      start: [0, 50],
+      connect: true,
+      range: {
+          'min': 0,
+          // '50%': 5000,
+          'max': 100
+      },
+      step: 1,
+      margin: 1,
+      tooltips: [wNumb({
+          postfix: ' miles',
+          decimals: 0
+      }), wNumb({
+          postfix: ' miles',
+          decimals: 0
+      })]
+  });
+}
 
-    var landAreaSlider = document.getElementById('land-area-slider');
-    noUiSlider.create(landAreaSlider, {
-        start: [0, 50],
-        connect: true,
-        range: {
-            'min': 0,
-            // '50%': 5000,
-            'max': 100
-        },
-        step: 1,
-        margin: 1,
-        tooltips: [wNumb({
-            postfix: ' miles',
-            decimals: 0
-        }), wNumb({
-            postfix: ' miles',
-            decimals: 0
-        })]
-    });
-
+function initTimingSlider() {
     var timingSlider = document.getElementById('timings-slider');
     noUiSlider.create(timingSlider, {
         start: [600, 1260],
@@ -76,21 +95,23 @@ function toClock(value) {
 }
 
 function getImages(){
-  var landAreaSlider = document.getElementById('land-area-slider');
+  // var landAreaSlider = document.getElementById('land-area-slider');
   var timingSlider = document.getElementById('timings-slider');
   var cuisineSelector = document.getElementById('cuisine-selector');
+  var citySelector = document.getElementById('city-selector');
   indices = {}
 
   $.ajax({
       url: "/fetch_designs",
       type: "get",
       data: {
-          land_area_start: landAreaSlider.noUiSlider.get()[0],
-          land_area_end: landAreaSlider.noUiSlider.get()[1],
+          // land_area_start: landAreaSlider.noUiSlider.get()[0],
+          // land_area_end: landAreaSlider.noUiSlider.get()[1],
           timings_start: timingSlider.noUiSlider.get()[0],
           timings_end: timingSlider.noUiSlider.get()[1],
           labels: galleries,
-          cuisine: cuisineSelector.value
+          cuisine: cuisineSelector.value,
+          city: citySelector.value
       },
       success: function(response) {
           images = response.img
