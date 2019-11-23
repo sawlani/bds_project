@@ -105,7 +105,8 @@ def user_input(input_label, input_category, input_radius, input_time, output_tim
 	print("output_time", output_time)
 	input_coordinates = [-80, 35]
 	input_label = ['inside']
-	query = photos.find({"$and":[{'loc' : {"$geoWithin": {"$centerSphere":[input_coordinates, (input_radius/3963)]}}},
+	query = photos.find({"$and":[{'loc' : {"$nearSphere": {"$geometry":{"coordinates":input_coordinates, "type":"Point"},
+						"$minDistance":1, "$maxDistance":((input_radius*10)/3963)}}},
 						{"label":{"$in":input_label}}, {"categories":{"$all":input_category}},
 						{"opening_time":{"$lte":input_time},"closing_time":{"$gte":output_time}}]})
 
