@@ -12,7 +12,8 @@ from flask_nav import register_renderer
 from flask import redirect, url_for, request
 from flask_sqlalchemy import SQLAlchemy
 # from sql_queries import *
-
+from pymongodb import user_input
+from pymongodb import setup
 import matplotlib.pyplot as plt
 import os
 
@@ -31,12 +32,13 @@ def create_app():
 
 def define_routes(app):
 
-    # @login_manager.user_loader
-    # def user_loader(user_id):
+    # @login_manager.loader
+    # def loader(user_id):
     #     return User.query.get(user_id)
 
     @app.route('/', methods=['POST', 'GET'])
     def main():
+        setup()
         return render_template("index.html", name="Main")
 
     @app.route('/vis', methods=['POST', 'GET'])
@@ -53,20 +55,23 @@ def define_routes(app):
         timings_end = request.args.get("timings_end")
         labels = request.args.get("label")
         city = request.args.get("city")
-
+        #
+        label="inside"
+        photo_ids = user_input(cuisine, city, timings_start, timings_end)
+        print("ids", photo_ids)
         #TODO: Get results from database: similar to sql_queries
         all_images, all_labels = fetch_demo_data()
         # test_images, test_labels = fetch_demo_data()
         # print(test_images)
         # print(test_labels)
-            
+
         return jsonify(img = all_images, labels = all_labels)
 
     @app.route('/fetch_business_details', methods=['GET'])
     def fetch_business_details():
         photo_id = request.args.get("photo_id")
 
-        #TODO: Get results from database: 
+        #TODO: Get results from database:
         business_name = 'Cafe Intermezzo'
         address = '1065 Peachtree St NE'
         city = 'Atlanta'
@@ -77,13 +82,13 @@ def define_routes(app):
 
         img_src = './static/data/food/desserts/Cheesecake/165910.jpg'
 
-        return render_template('business_details.html', 
-                    business_name = business_name, 
+        return render_template('business_details.html',
+                    business_name = business_name,
                     address = address,
-                    city = city, 
+                    city = city,
                     state = state,
                     stars = stars,
-                    num_reviews = num_reviews, 
+                    num_reviews = num_reviews,
                     categories = categories,
                     img_src = img_src,
                     )
@@ -105,7 +110,7 @@ def fetch_dummy_data():
     all_images = []
     all_labels = []
 
-    images = [['img_nature_wide.jpg', 'img_nature_wide.jpg', 'img_nature_wide.jpg', 'img_nature_wide.jpg', 'img_nature_wide.jpg'], 
+    images = [['img_nature_wide.jpg', 'img_nature_wide.jpg', 'img_nature_wide.jpg', 'img_nature_wide.jpg', 'img_nature_wide.jpg'],
     ['img_nature_wide.jpg', 'img_nature_wide.jpg', 'img_nature_wide.jpg', 'img_nature_wide.jpg', 'img_nature_wide.jpg'],
     ['img_nature_wide.jpg', 'img_nature_wide.jpg', 'img_nature_wide.jpg', 'img_nature_wide.jpg', 'img_nature_wide.jpg'],
     ['img_nature_wide.jpg', 'img_nature_wide.jpg', 'img_nature_wide.jpg', 'img_nature_wide.jpg', 'img_nature_wide.jpg'],
@@ -113,8 +118,8 @@ def fetch_dummy_data():
     img_labels = ['Scenary', 'Bands', 'Scenary', 'Bands', 'Scenary' ]
     all_images.append(images)
     all_labels.append(img_labels)
-    
-    images = [['img_mountains_wide.jpg', 'img_mountains_wide.jpg', 'img_mountains_wide.jpg', 'img_mountains_wide.jpg', 'img_mountains_wide.jpg'], 
+
+    images = [['img_mountains_wide.jpg', 'img_mountains_wide.jpg', 'img_mountains_wide.jpg', 'img_mountains_wide.jpg', 'img_mountains_wide.jpg'],
     ['img_mountains_wide.jpg', 'img_mountains_wide.jpg', 'img_mountains_wide.jpg', 'img_mountains_wide.jpg', 'img_mountains_wide.jpg'],
     ['img_mountains_wide.jpg', 'img_mountains_wide.jpg', 'img_mountains_wide.jpg', 'img_mountains_wide.jpg', 'img_mountains_wide.jpg'],
     ['img_mountains_wide.jpg', 'img_mountains_wide.jpg', 'img_mountains_wide.jpg', 'img_mountains_wide.jpg', 'img_mountains_wide.jpg'],
@@ -123,7 +128,7 @@ def fetch_dummy_data():
     all_images.append(images)
     all_labels.append(img_labels)
 
-    images = [['img_band_la.jpg', 'img_band_la.jpg', 'img_band_la.jpg', 'img_band_la.jpg', 'img_band_la.jpg'], 
+    images = [['img_band_la.jpg', 'img_band_la.jpg', 'img_band_la.jpg', 'img_band_la.jpg', 'img_band_la.jpg'],
     ['img_band_la.jpg', 'img_band_la.jpg', 'img_band_la.jpg', 'img_band_la.jpg', 'img_band_la.jpg'],
     ['img_band_la.jpg', 'img_band_la.jpg', 'img_band_la.jpg', 'img_band_la.jpg', 'img_band_la.jpg'],
     ['img_band_la.jpg', 'img_band_la.jpg', 'img_band_la.jpg', 'img_band_la.jpg', 'img_band_la.jpg'],
