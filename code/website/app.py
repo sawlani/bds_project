@@ -17,7 +17,7 @@ from pymongodb import setup
 import matplotlib.pyplot as plt
 import os
 
-
+photo_metadata = {}
 class InverseRenderer(BootstrapRenderer):
     def visit_Navbar(self, node):
         nav_tag = super(InverseRenderer, self).visit_Navbar(node)
@@ -57,41 +57,51 @@ def define_routes(app):
         city = request.args.get("city")
         #
         label="inside"
-        photo_ids = user_input(cuisine, city, timings_start, timings_end)
-        print("ids", photo_ids)
+        output, output_labels, id_dict = user_input(cuisine, city, timings_start, timings_end)
+        global photo_metadata
+        photo_metadata = id_dict
+        print(len(photo_metadata.keys()))
+        # print("ids", photo_ids)
         #TODO: Get results from database: similar to sql_queries
-        all_images, all_labels = fetch_demo_data()
+        # all_images, all_labels = fetch_demo_data()
         # test_images, test_labels = fetch_demo_data()
         # print(test_images)
         # print(test_labels)
 
-        return jsonify(img = all_images, labels = all_labels)
+        return jsonify(img = output, labels = output_labels)
 
     @app.route('/fetch_business_details', methods=['GET'])
     def fetch_business_details():
+        print("Inside click")
         photo_id = request.args.get("photo_id")
+        print("Photo id on click:",photo_id)
+        print(len(photo_metadata.keys()))
+        if photo_id in photo_metadata:
+            data = photo_metadata[photo_id]
+            #TODO: Get results from database:
+            business_name = data['business_name'].encode('utf-8')
+            address = data['address'].encode('utf-8')
+            city = data['city'].encode('utf-8')
+            state = data['state'].encode('utf-8')
+            stars = data['business rating']
+            num_reviews = data['review_count']
+            categories_temp = data['categories']
+            categories = []
+            for cat in categories_temp:
+                categories.append(cat.encode('utf-8'))
 
-        #TODO: Get results from database:
-        business_name = 'Cafe Intermezzo'
-        address = '1065 Peachtree St NE'
-        city = 'Atlanta'
-        state = 'Georgia'
-        stars = '4.0'
-        num_reviews = '1024'
-        categories = 'Cafes, Bars, Desserts'
+            img_src = './static/data/photos/' + photo_id + '.jpg'
 
-        img_src = './static/data/food/desserts/Cheesecake/165910.jpg'
-
-        return render_template('business_details.html',
-                    business_name = business_name,
-                    address = address,
-                    city = city,
-                    state = state,
-                    stars = stars,
-                    num_reviews = num_reviews,
-                    categories = categories,
-                    img_src = img_src,
-                    )
+            return render_template('business_details.html',
+                        business_name = business_name,
+                        address = address,
+                        city = city,
+                        state = state,
+                        stars = stars,
+                        num_reviews = num_reviews,
+                        categories = categories,
+                        img_src = img_src,
+                        )
 
 def nav_init(app):
     nav = Nav()

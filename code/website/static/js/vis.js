@@ -11,10 +11,10 @@ var imgwidth = 100 / numImages;
 var slideId = 'slideshow-container';
 
 function initCities(){
-  cities = ['Las Vegas', 'Toronto', 'Phoenix', 'Charlotte', 'Scottsdale', 'Calgary', 'Pittsburgh', 
-            'Montréal', 'Mesa', 'Henderson', 'Tempe', 'Chandler', 'Cleveland', 'Glendale', 
-            'Madison', 'Gilbert', 'Mississauga', 'Peoria', 'Markham', 'North Las Vegas', 'Champaign', 
-            'North York', 'Surprise', 'Scarborough', 'Richmond Hill', 'Brampton', 'Concord', 
+  cities = ['Las Vegas', 'Toronto', 'Phoenix', 'Charlotte', 'Scottsdale', 'Calgary', 'Pittsburgh',
+            'Montréal', 'Mesa', 'Henderson', 'Tempe', 'Chandler', 'Cleveland', 'Glendale',
+            'Madison', 'Gilbert', 'Mississauga', 'Peoria', 'Markham', 'North Las Vegas', 'Champaign',
+            'North York', 'Surprise', 'Scarborough', 'Richmond Hill', 'Brampton', 'Concord',
             'Vaughan', 'Goodyear', 'Etobicoke'];
 
   var cityForm = document.getElementById('city-selector');
@@ -62,7 +62,7 @@ function initTimingSlider() {
         connect: true,
         range: {
             'min': 0,
-            'max': 1440
+            'max': 1425
         },
         step: 15,
         margin: 15,
@@ -79,17 +79,17 @@ function initTimingSlider() {
 function toClock(value) {
 	var hours = Math.floor(value / 60);
     var minutes = Math.floor(value - (hours * 60));
-    var ampm = "";  
-    
+    var ampm = "";
+
     if(hours.length == 1) {hours = '12' + hours;}
     if(hours > 12) {ampm = "PM"; hours = hours-12;}
     else if(hours == 12){ampm = "PM";}
     else if(hours < 12){
-        ampm = "AM"; 
-        if(hours == 0)  hours =  12;            
-                               
-    }      
-    if(minutes == 0){minutes = '0' + minutes;}               
+        ampm = "AM";
+        if(hours == 0)  hours =  12;
+
+    }
+    if(minutes == 0){minutes = '0' + minutes;}
     var combo = hours+':'+minutes + ampm;
     return combo
 }
@@ -147,7 +147,7 @@ function displayGallery(images, img_labels, label) {
     currSlideContainer.appendChild(para);
 
     for(j=0;j<images[i].length;j++){
-      var slide = getSlide(images[i][j]); 
+      var slide = getSlide('static/data/photos/' + images[i][j] + '.jpg', images[i][j]);
       slide.style.display = 'none';
 
       if(j < numImages){
@@ -163,17 +163,18 @@ function displayGallery(images, img_labels, label) {
   indices[label] = photoIndex;
 }
 
-function getSlide(image) {
+function getSlide(image, id) {
   var slide = document.createElement('div');
   slide.setAttribute('class', 'slide');
 
   var img = document.createElement('img');
   img.setAttribute('class', 'gallery-image');
-   img.setAttribute('src', image);
+  img.setAttribute('src', image);
   // img.setAttribute('src', './static/data/images/' + image);
-  img.setAttribute('onclick', 'getBusinessDetails(\'' + image.slice(0,-4) + '\')');
+  console.log(id);
+  img.setAttribute('onclick', 'getBusinessDetails(\'' + id + '\')');
   var width = imgwidth.toString() + '%';
-  img.setAttribute('width', width);     
+  img.setAttribute('width', width);
   slide.appendChild(img);
 
   return slide;
@@ -205,15 +206,15 @@ function showSlides(flag, index, label) {
   photoIndex[index] = photoIndex[index] + flag * numImages
   if(photoIndex[index] >= x.length) photoIndex[index] = photoIndex[index] - flag * numImages;
   if(photoIndex[index] < 0) photoIndex[index] = 0;
-  
+
   for (i = 0; i < x.length; i++) {
-     x[i].style.display = "none";  
+     x[i].style.display = "none";
   }
   for(i=0;i < numImages; i++) {
     if(photoIndex[index] + i < x.length){
       x[photoIndex[index] + i].style.display = "block";
     }
-  }  
+  }
 }
 
 function getBusinessDetails(photo_id){
