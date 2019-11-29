@@ -1,5 +1,4 @@
 import sys
-# sys.path.append('static/data')
 
 from flask import Flask
 from flask import render_template
@@ -11,7 +10,6 @@ from flask_nav.elements import *
 from flask_nav import register_renderer
 from flask import redirect, url_for, request
 from flask_sqlalchemy import SQLAlchemy
-# from sql_queries import *
 from pymongodb import user_input
 from pymongodb import setup
 import matplotlib.pyplot as plt
@@ -32,35 +30,27 @@ def create_app():
 
 def define_routes(app):
 
-    # @login_manager.loader
-    # def loader(user_id):
-    #     return User.query.get(user_id)
-
     @app.route('/', methods=['POST', 'GET'])
     def main():
         setup()
         return render_template("index.html", name="Main")
 
     @app.route('/vis', methods=['POST', 'GET'])
-    # @login_required
     def vis():
         return render_template("vis.html", name="Visualisation")
 
     @app.route('/fetch_designs', methods=['GET'])
     def fetch_designs():
         cuisine = request.args.get("cuisine")
-        # land_area_start = request.args.get("land_area_start")
-        # land_area_end = request.args.get("land_area_end")
         timings_start = request.args.get("timings_start")
         timings_end = request.args.get("timings_end")
-        labels = request.args.get("label")
+        # labels = request.args.get("label")
         city = request.args.get("city")
-        #
-        label="inside"
+        # label="inside"
         output, output_labels, id_dict = user_input(cuisine, city, timings_start, timings_end)
         global photo_metadata
         photo_metadata = id_dict
-        print(len(photo_metadata.keys()))
+        # print(len(photo_metadata.keys()))
         # print("ids", photo_ids)
         #TODO: Get results from database: similar to sql_queries
         # all_images, all_labels = fetch_demo_data()
@@ -116,83 +106,83 @@ def nav_init(app):
 
     nav.init_app(app)
 
-def fetch_dummy_data():
-    all_images = []
-    all_labels = []
+# def fetch_dummy_data():
+#     all_images = []
+#     all_labels = []
 
-    images = [['img_nature_wide.jpg', 'img_nature_wide.jpg', 'img_nature_wide.jpg', 'img_nature_wide.jpg', 'img_nature_wide.jpg'],
-    ['img_nature_wide.jpg', 'img_nature_wide.jpg', 'img_nature_wide.jpg', 'img_nature_wide.jpg', 'img_nature_wide.jpg'],
-    ['img_nature_wide.jpg', 'img_nature_wide.jpg', 'img_nature_wide.jpg', 'img_nature_wide.jpg', 'img_nature_wide.jpg'],
-    ['img_nature_wide.jpg', 'img_nature_wide.jpg', 'img_nature_wide.jpg', 'img_nature_wide.jpg', 'img_nature_wide.jpg'],
-    ['img_nature_wide.jpg', 'img_nature_wide.jpg', 'img_nature_wide.jpg', 'img_nature_wide.jpg', 'img_nature_wide.jpg']];
-    img_labels = ['Scenary', 'Bands', 'Scenary', 'Bands', 'Scenary' ]
-    all_images.append(images)
-    all_labels.append(img_labels)
+#     images = [['img_nature_wide.jpg', 'img_nature_wide.jpg', 'img_nature_wide.jpg', 'img_nature_wide.jpg', 'img_nature_wide.jpg'],
+#     ['img_nature_wide.jpg', 'img_nature_wide.jpg', 'img_nature_wide.jpg', 'img_nature_wide.jpg', 'img_nature_wide.jpg'],
+#     ['img_nature_wide.jpg', 'img_nature_wide.jpg', 'img_nature_wide.jpg', 'img_nature_wide.jpg', 'img_nature_wide.jpg'],
+#     ['img_nature_wide.jpg', 'img_nature_wide.jpg', 'img_nature_wide.jpg', 'img_nature_wide.jpg', 'img_nature_wide.jpg'],
+#     ['img_nature_wide.jpg', 'img_nature_wide.jpg', 'img_nature_wide.jpg', 'img_nature_wide.jpg', 'img_nature_wide.jpg']];
+#     img_labels = ['Scenary', 'Bands', 'Scenary', 'Bands', 'Scenary' ]
+#     all_images.append(images)
+#     all_labels.append(img_labels)
 
-    images = [['img_mountains_wide.jpg', 'img_mountains_wide.jpg', 'img_mountains_wide.jpg', 'img_mountains_wide.jpg', 'img_mountains_wide.jpg'],
-    ['img_mountains_wide.jpg', 'img_mountains_wide.jpg', 'img_mountains_wide.jpg', 'img_mountains_wide.jpg', 'img_mountains_wide.jpg'],
-    ['img_mountains_wide.jpg', 'img_mountains_wide.jpg', 'img_mountains_wide.jpg', 'img_mountains_wide.jpg', 'img_mountains_wide.jpg'],
-    ['img_mountains_wide.jpg', 'img_mountains_wide.jpg', 'img_mountains_wide.jpg', 'img_mountains_wide.jpg', 'img_mountains_wide.jpg'],
-    ['img_mountains_wide.jpg', 'img_mountains_wide.jpg', 'img_mountains_wide.jpg', 'img_mountains_wide.jpg', 'img_mountains_wide.jpg']]
-    img_labels = ['Scenary', 'Bands', 'Scenary', 'Bands', 'Scenary']
-    all_images.append(images)
-    all_labels.append(img_labels)
+#     images = [['img_mountains_wide.jpg', 'img_mountains_wide.jpg', 'img_mountains_wide.jpg', 'img_mountains_wide.jpg', 'img_mountains_wide.jpg'],
+#     ['img_mountains_wide.jpg', 'img_mountains_wide.jpg', 'img_mountains_wide.jpg', 'img_mountains_wide.jpg', 'img_mountains_wide.jpg'],
+#     ['img_mountains_wide.jpg', 'img_mountains_wide.jpg', 'img_mountains_wide.jpg', 'img_mountains_wide.jpg', 'img_mountains_wide.jpg'],
+#     ['img_mountains_wide.jpg', 'img_mountains_wide.jpg', 'img_mountains_wide.jpg', 'img_mountains_wide.jpg', 'img_mountains_wide.jpg'],
+#     ['img_mountains_wide.jpg', 'img_mountains_wide.jpg', 'img_mountains_wide.jpg', 'img_mountains_wide.jpg', 'img_mountains_wide.jpg']]
+#     img_labels = ['Scenary', 'Bands', 'Scenary', 'Bands', 'Scenary']
+#     all_images.append(images)
+#     all_labels.append(img_labels)
 
-    images = [['img_band_la.jpg', 'img_band_la.jpg', 'img_band_la.jpg', 'img_band_la.jpg', 'img_band_la.jpg'],
-    ['img_band_la.jpg', 'img_band_la.jpg', 'img_band_la.jpg', 'img_band_la.jpg', 'img_band_la.jpg'],
-    ['img_band_la.jpg', 'img_band_la.jpg', 'img_band_la.jpg', 'img_band_la.jpg', 'img_band_la.jpg'],
-    ['img_band_la.jpg', 'img_band_la.jpg', 'img_band_la.jpg', 'img_band_la.jpg', 'img_band_la.jpg'],
-    ['img_band_la.jpg', 'img_band_la.jpg', 'img_band_la.jpg', 'img_band_la.jpg', 'img_band_la.jpg']]
-    img_labels = ['Scenary', 'Bands', 'Scenary', 'Bands', 'Scenary' ]
-    all_images.append(images)
-    all_labels.append(img_labels)
+#     images = [['img_band_la.jpg', 'img_band_la.jpg', 'img_band_la.jpg', 'img_band_la.jpg', 'img_band_la.jpg'],
+#     ['img_band_la.jpg', 'img_band_la.jpg', 'img_band_la.jpg', 'img_band_la.jpg', 'img_band_la.jpg'],
+#     ['img_band_la.jpg', 'img_band_la.jpg', 'img_band_la.jpg', 'img_band_la.jpg', 'img_band_la.jpg'],
+#     ['img_band_la.jpg', 'img_band_la.jpg', 'img_band_la.jpg', 'img_band_la.jpg', 'img_band_la.jpg'],
+#     ['img_band_la.jpg', 'img_band_la.jpg', 'img_band_la.jpg', 'img_band_la.jpg', 'img_band_la.jpg']]
+#     img_labels = ['Scenary', 'Bands', 'Scenary', 'Bands', 'Scenary' ]
+#     all_images.append(images)
+#     all_labels.append(img_labels)
 
-    return all_images, all_labels
+#     return all_images, all_labels
 
-def fetch_demo_data():
-    all_labels = []
-    all_images = []
+# def fetch_demo_data():
+#     all_labels = []
+#     all_images = []
 
-    indoor_outdoor_labels = ['Sweet Hut', 'Amelie\'s French Bakery', 'Sugar Shack', 'Jeni\'s', 'Sublime Donuts']
-    food_labels = ['Cheesecake', 'Ice Cream', 'Frozen Yogurt', 'Donuts', 'Apple Pie']
+#     indoor_outdoor_labels = ['Sweet Hut', 'Amelie\'s French Bakery', 'Sugar Shack', 'Jeni\'s', 'Sublime Donuts']
+#     food_labels = ['Cheesecake', 'Ice Cream', 'Frozen Yogurt', 'Donuts', 'Apple Pie']
 
-    all_labels.append(food_labels)
-    all_labels.append(indoor_outdoor_labels)
-    all_labels.append(indoor_outdoor_labels)
-    base_path = 'static/data/'
+#     all_labels.append(food_labels)
+#     all_labels.append(indoor_outdoor_labels)
+#     all_labels.append(indoor_outdoor_labels)
+#     base_path = 'static/data/'
 
-    curr_images = []
-    for i in range(5):
-        curr_label = food_labels[i]
-        path = base_path + 'food/desserts/' + food_labels[i] + '/'
-        curr_food_images = []
-        for filename in os.listdir(path):
-            if filename.endswith(".jpg"):
-                curr_food_images.append('./' + path + filename)
-        curr_images.append(curr_food_images)
-    all_images.append(curr_images)
+#     curr_images = []
+#     for i in range(5):
+#         curr_label = food_labels[i]
+#         path = base_path + 'food/desserts/' + food_labels[i] + '/'
+#         curr_food_images = []
+#         for filename in os.listdir(path):
+#             if filename.endswith(".jpg"):
+#                 curr_food_images.append('./' + path + filename)
+#         curr_images.append(curr_food_images)
+#     all_images.append(curr_images)
 
-    curr_images = []
-    for i in range(5):
-        path = base_path + 'indoors/' + indoor_outdoor_labels[i] + '/'
-        curr_food_images = []
-        for filename in os.listdir(path):
-            if filename.endswith(".jpg"):
-                curr_food_images.append('./' + path + filename)
-        curr_images.append(curr_food_images)
-    all_images.append(curr_images)
+#     curr_images = []
+#     for i in range(5):
+#         path = base_path + 'indoors/' + indoor_outdoor_labels[i] + '/'
+#         curr_food_images = []
+#         for filename in os.listdir(path):
+#             if filename.endswith(".jpg"):
+#                 curr_food_images.append('./' + path + filename)
+#         curr_images.append(curr_food_images)
+#     all_images.append(curr_images)
 
-    curr_images = []
-    for i in range(5):
-        path = base_path + 'outdoors/' + indoor_outdoor_labels[i] + '/'
-        curr_food_images = []
-        for filename in os.listdir(path):
-            if filename.endswith(".jpg"):
-                curr_food_images.append('./' + path + filename)
-        curr_images.append(curr_food_images)
-    all_images.append(curr_images)
+#     curr_images = []
+#     for i in range(5):
+#         path = base_path + 'outdoors/' + indoor_outdoor_labels[i] + '/'
+#         curr_food_images = []
+#         for filename in os.listdir(path):
+#             if filename.endswith(".jpg"):
+#                 curr_food_images.append('./' + path + filename)
+#         curr_images.append(curr_food_images)
+#     all_images.append(curr_images)
 
-    return all_images, all_labels
+#     return all_images, all_labels
 
 
 if __name__ == "__main__":
